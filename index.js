@@ -21,7 +21,7 @@ app.use(
     allowedOrigins: [
       "https://watcher-front.vercel.app",
       "https://firebasestorage.googleapis.com",
-      "https://watcher-server-production-a42e.up.railway.app",
+      "https://watcher-server.up.railway.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: [
