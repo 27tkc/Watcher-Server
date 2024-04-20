@@ -21,7 +21,6 @@ app.use(
     allowedOrigins: [
       "https://watcher-front.vercel.app",
       "https://firebasestorage.googleapis.com",
-      process.env.MONGO,
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: [
