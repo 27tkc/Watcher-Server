@@ -15,38 +15,42 @@ const app = express();
 
 // Middleware
 app.use(
-    cors({
-        origin: 'https://watcher-front.vercel.app',
-        optionsSuccessStatus: 200,
-        allowedOrigins: ['https://watcher-front.vercel.app','https://firebasestorage.googleapis.com'],
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-        allowedHeaders: [
-            'Content-Type',
-            'Authorization',
-            'Access-Control-Allow-Origin',
-            'Access-Control-Allow-Methods',
-            'Access-Control-Allow-Headers',
-        ],
-        credentials: true,
-    })
-)
+  cors({
+    origin: "https://watcher-front.vercel.app",
+    optionsSuccessStatus: 200,
+    allowedOrigins: [
+      "https://watcher-front.vercel.app",
+      "https://firebasestorage.googleapis.com",
+      process.env.MONGO,
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Access-Control-Allow-Origin",
+      "Access-Control-Allow-Methods",
+      "Access-Control-Allow-Headers",
+    ],
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 
 // Connect to MongoDB
 const connectToDB = async () => {
   try {
-    await mongoose.connect(
-      process.env.MONGO,
-      { useNewUrlParser: true, useUnifiedTopology: true }
-    )
-    console.log('Connected to MongoDB')
+    await mongoose.connect(process.env.MONGO, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to MongoDB");
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error.message)
-    process.exit(1) // Exit process with failure
+    console.error("Error connecting to MongoDB:", error.message);
+    process.exit(1); // Exit process with failure
   }
 };
-connectToDB()
+connectToDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -57,13 +61,13 @@ app.use("/api/payments", paymentRoutes);
 
 // Error handler
 app.use((err, req, res, next) => {
-  const status = err.status || 500
-  const message = err.message || 'Something went wrong!'
-  return res.status(status).json({ success: false, status, message })
+  const status = err.status || 500;
+  const message = err.message || "Something went wrong!";
+  return res.status(status).json({ success: false, status, message });
 });
 
 // Start server
 const PORT = 5002;
 app.listen(PORT, () => {
-	console.log(`Server running on port ${PORT}`)
-})
+  console.log(`Server running on port ${PORT}`);
+});
