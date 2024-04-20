@@ -40,10 +40,13 @@ app.use(express.json());
 // Connect to MongoDB
 const connectToDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(
+      "mongodb+srv://tarunkc22ca:27tkcMongoDB@cluster0.muk3ggm.mongodb.net/?retryWrites=true&w=majority",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error.message);
